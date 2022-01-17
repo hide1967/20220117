@@ -13,5 +13,5 @@ class Profile extends Model
     'gender' => 'required',
     'hobby' => 'required',
     'introduction' => 'required',);
-    //
+    //memo
 }

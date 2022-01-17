@@ -8,7 +8,7 @@ use App\Profile;
 
 class ProfileController extends Controller
 {
-    //
+    //memo
     public function add(){
       return view('admin.profile.create');
     }

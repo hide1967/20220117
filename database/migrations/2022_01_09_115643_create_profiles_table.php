@@ -24,7 +24,7 @@ class CreateProfilesTable extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migrations.memo
      *
      * @return void
      */
