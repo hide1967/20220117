@@ -59,7 +59,29 @@
             </div>
 
         </form>
+
+        <div class="row mt-5">
+          <div class="col-md-4 mx-auto">
+            <h2>編集履歴</h2>
+            <ul class="list-group">
+              @if($profile_form->histories !=NULL)
+                @foreach($profile_form->histories as $profilehistory)
+                    <li class="list-group-item">{{ $profilehistory->edited_at }} </li>
+                @endforeach
+              @endif
+            </ul>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
 @endsection
+
+<!--このnewsレコードに対してhistoriesメソッドを使っています。
+
+historiesは先ほど定義したhasManyを使ったメソッドでしたね。
+
+つまり、このnewsレコードに関連しているhistoriesテーブルすべてを取得するメソッドになっています。
+
+このメソッドを使うから、newsの変更履歴一覧を取得できているわけです。-->
