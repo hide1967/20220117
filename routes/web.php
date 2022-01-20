@@ -15,16 +15,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'admin'], function(){
+/*Route::group(['prefix' => 'admin'], function(){
   Route::get('news/create', 'Admin\NewsController@add')->middleware('auth');
   Route::get('profile/create', 'Admin\ProfileController@add')->middleware('auth');
   Route::get('profile/edit', 'Admin\ProfileController@edit')->middleware('auth');
-});
+
+});*/
 
 //以下14章追記
 Route::group(['prefix' => 'admin', 'middleware'=> 'auth'], function(){
   Route::get('news/create', 'Admin\NewsController@add');
   Route::post('news/create','Admin\NewsController@create');
+  Route::get('news', 'Admin\NewsController@index');
+  Route::get('news/edit', 'Admin\NewsController@edit');
+  Route::post('news/edit', 'Admin\NewsController@update');
+  Route::get('news/delete', 'Admin\NewsController@delete');
 });
 //prefix->は、無名関数functionの中のURLをadminにしている
 //上のグループに入れるときは->middleware authを末尾につけないとダメっぽい
@@ -34,6 +39,8 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'auth'], function(){
 //これは通常のページの表示にはGETを受け取り、フォームを送信したときに受け取る場合にはPOSTを受け取るように指定しています。
 
 Route::group(['prefix' => 'admin', 'middleware'=> 'auth'], function(){
+  Route::get('profile/create', 'Admin\ProfileController@add');
+  Route::get('profile/edit', 'Admin\ProfileController@edit');
   Route::post('profile/create','Admin\ProfileController@create');//課題１４－３
   Route::post('profile/edit', 'Admin\ProfileController@update');//課題１４－６
 });
