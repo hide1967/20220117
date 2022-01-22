@@ -8,6 +8,7 @@ use App\News;
 //18章追記
 use Carbon\Carbon;
 use App\History;
+use Storage;
 
 class NewsController extends Controller
 {
@@ -26,8 +27,11 @@ class NewsController extends Controller
 
       //フォームから画像が送信されてきたら、保存して、$news->image_pathに画像のパスを保存する
       if(isset($form['image'])){
-        $path =$request->file('image')->store('public/image');//リクエストで送られてきた情報のうち、imageという名前のものをファイルとして、public/image配下に保存して、その結果保存したファイルのパスを$pathに代入するという処理になります。
+      /*  $path =$request->file('image')->store('public/image');//リクエストで送られてきた情報のうち、imageという名前のものをファイルとして、public/image配下に保存して、その結果保存したファイルのパスを$pathに代入するという処理になります。
         $news->image_path = basename($path);
+        */
+        $path=Storage::disk('s3')->putFile('/',$form['image'],'public');
+        $news->image_path=Storage::disk('s3')->url($path);
       }else{
         $news->image_path = null;
       }
